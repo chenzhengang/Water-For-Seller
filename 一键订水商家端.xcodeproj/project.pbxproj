@@ -7,15 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B1BCF82633E484986BB1BBD0 /* libPods-一键订水商家端.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C87B1F33B8629DBFECEDBA /* libPods-一键订水商家端.a */; };
 		B35638972104955E004C8943 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B35638962104955E004C8943 /* AppDelegate.m */; };
 		B356389A2104955E004C8943 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B35638992104955E004C8943 /* ViewController.m */; };
 		B356389D2104955E004C8943 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B356389B2104955E004C8943 /* Main.storyboard */; };
 		B356389F2104955F004C8943 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B356389E2104955F004C8943 /* Assets.xcassets */; };
 		B35638A22104955F004C8943 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B35638A02104955F004C8943 /* LaunchScreen.storyboard */; };
 		B35638A52104955F004C8943 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B35638A42104955F004C8943 /* main.m */; };
+		B35638AC210495CA004C8943 /* Boat_Loader.json in Resources */ = {isa = PBXBuildFile; fileRef = B35638AB210495CA004C8943 /* Boat_Loader.json */; };
+		B35638AF2104A8E9004C8943 /* TradeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B35638AE2104A8E9004C8943 /* TradeViewController.m */; };
+		B35638C12104F211004C8943 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = B35638C02104F211004C8943 /* Order.m */; };
+		B35638C421061741004C8943 /* vcTransition2.json in Resources */ = {isa = PBXBuildFile; fileRef = B35638C221061740004C8943 /* vcTransition2.json */; };
+		B35638C721061D16004C8943 /* water-loading.json in Resources */ = {isa = PBXBuildFile; fileRef = B35638C621061D16004C8943 /* water-loading.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		18C87B1F33B8629DBFECEDBA /* libPods-一键订水商家端.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-一键订水商家端.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		880603144B50196CC8F85D92 /* Pods-一键订水商家端.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-一键订水商家端.release.xcconfig"; path = "Pods/Target Support Files/Pods-一键订水商家端/Pods-一键订水商家端.release.xcconfig"; sourceTree = "<group>"; };
 		B35638922104955E004C8943 /* 一键订水商家端.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "一键订水商家端.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B35638952104955E004C8943 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B35638962104955E004C8943 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -26,6 +34,14 @@
 		B35638A12104955F004C8943 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B35638A32104955F004C8943 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B35638A42104955F004C8943 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B35638AB210495CA004C8943 /* Boat_Loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Boat_Loader.json; sourceTree = "<group>"; };
+		B35638AD2104A8E9004C8943 /* TradeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TradeViewController.h; sourceTree = "<group>"; };
+		B35638AE2104A8E9004C8943 /* TradeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TradeViewController.m; sourceTree = "<group>"; };
+		B35638BF2104F211004C8943 /* Order.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
+		B35638C02104F211004C8943 /* Order.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
+		B35638C221061740004C8943 /* vcTransition2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = vcTransition2.json; sourceTree = "<group>"; };
+		B35638C621061D16004C8943 /* water-loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "water-loading.json"; sourceTree = "<group>"; };
+		EAF19A416005C698B3BB480A /* Pods-一键订水商家端.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-一键订水商家端.debug.xcconfig"; path = "Pods/Target Support Files/Pods-一键订水商家端/Pods-一键订水商家端.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,17 +49,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1BCF82633E484986BB1BBD0 /* libPods-一键订水商家端.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8B9B503BEEE3DAF650086570 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EAF19A416005C698B3BB480A /* Pods-一键订水商家端.debug.xcconfig */,
+				880603144B50196CC8F85D92 /* Pods-一键订水商家端.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		B35638892104955E004C8943 = {
 			isa = PBXGroup;
 			children = (
 				B35638942104955E004C8943 /* 一键订水商家端 */,
 				B35638932104955E004C8943 /* Products */,
+				8B9B503BEEE3DAF650086570 /* Pods */,
+				E91E40B53BB69E5638EA980F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,13 +90,28 @@
 				B35638962104955E004C8943 /* AppDelegate.m */,
 				B35638982104955E004C8943 /* ViewController.h */,
 				B35638992104955E004C8943 /* ViewController.m */,
+				B35638AD2104A8E9004C8943 /* TradeViewController.h */,
+				B35638BF2104F211004C8943 /* Order.h */,
+				B35638C02104F211004C8943 /* Order.m */,
+				B35638AE2104A8E9004C8943 /* TradeViewController.m */,
 				B356389B2104955E004C8943 /* Main.storyboard */,
+				B35638C621061D16004C8943 /* water-loading.json */,
+				B35638C221061740004C8943 /* vcTransition2.json */,
 				B356389E2104955F004C8943 /* Assets.xcassets */,
+				B35638AB210495CA004C8943 /* Boat_Loader.json */,
 				B35638A02104955F004C8943 /* LaunchScreen.storyboard */,
 				B35638A32104955F004C8943 /* Info.plist */,
 				B35638A42104955F004C8943 /* main.m */,
 			);
 			path = "一键订水商家端";
+			sourceTree = "<group>";
+		};
+		E91E40B53BB69E5638EA980F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				18C87B1F33B8629DBFECEDBA /* libPods-一键订水商家端.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -78,6 +121,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B35638A82104955F004C8943 /* Build configuration list for PBXNativeTarget "一键订水商家端" */;
 			buildPhases = (
+				F9F888089B2DB158A8ABF1E1 /* [CP] Check Pods Manifest.lock */,
 				B356388E2104955E004C8943 /* Sources */,
 				B356388F2104955E004C8943 /* Frameworks */,
 				B35638902104955E004C8943 /* Resources */,
@@ -128,6 +172,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B35638C721061D16004C8943 /* water-loading.json in Resources */,
+				B35638AC210495CA004C8943 /* Boat_Loader.json in Resources */,
+				B35638C421061741004C8943 /* vcTransition2.json in Resources */,
 				B35638A22104955F004C8943 /* LaunchScreen.storyboard in Resources */,
 				B356389F2104955F004C8943 /* Assets.xcassets in Resources */,
 				B356389D2104955E004C8943 /* Main.storyboard in Resources */,
@@ -136,14 +183,37 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		F9F888089B2DB158A8ABF1E1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-一键订水商家端-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B356388E2104955E004C8943 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B35638C12104F211004C8943 /* Order.m in Sources */,
 				B356389A2104955E004C8943 /* ViewController.m in Sources */,
 				B35638A52104955F004C8943 /* main.m in Sources */,
 				B35638972104955E004C8943 /* AppDelegate.m in Sources */,
+				B35638AF2104A8E9004C8943 /* TradeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,6 +351,7 @@
 		};
 		B35638A92104955F004C8943 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EAF19A416005C698B3BB480A /* Pods-一键订水商家端.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -298,6 +369,7 @@
 		};
 		B35638AA2104955F004C8943 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 880603144B50196CC8F85D92 /* Pods-一键订水商家端.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
