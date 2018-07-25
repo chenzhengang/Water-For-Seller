@@ -7,17 +7,79 @@
 //
 
 #import "AppDelegate.h"
+#import <UserNotifications/UserNotifications.h>
 
 @interface AppDelegate ()
-
+@property (nonatomic) dispatch_source_t badgeTimer;
 @end
 
 @implementation AppDelegate
 
-
+NSUInteger num=0;//当前的订单数目
+NSUInteger num0=0;//关闭之前的订单数目
+NSUInteger num1=0;//发出通知时的订单数目
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    // 注册通知
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionSound) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+    }];
     return YES;
+}
+
+//发出通知
+- (void)addlocalNotificationForNewVersion {
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    center.delegate = self;
+    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+    content.title = [NSString localizedUserNotificationStringForKey:[NSString stringWithFormat:@"您有%lu个新的订单",num-num0] arguments:nil];
+    content.body = [NSString localizedUserNotificationStringForKey:@"点击查看" arguments:nil];
+    content.sound = [UNNotificationSound defaultSound];
+    content.badge = @3;
+    //    UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:alertTime repeats:NO];
+    
+    //通知触发机制。（重复提醒，时间间隔要大于60s）
+//    UNTimeIntervalNotificationTrigger *trigger1 = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:5 repeats:NO];
+
+    //创建UNNotificationRequest通知请求对象
+    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:@"OXNotification" content:content trigger:nil];
+    
+    //将通知加到通知中心
+    [center addNotificationRequest:request withCompletionHandler:^(NSError *_Nullable error) {
+        NSLog(@"成功添加推送");
+    }];
+}
+
+//设置定时检测订单
+- (void)stratBadgeNumberCount{
+    //[UIApplication sharedApplication].applicationIconBadgeNumber = 3;
+    //创建定时器在主线程
+    _badgeTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue());
+    //设置定时器执行规律
+    //第二个是开始时间DISPATCH_TIME_NOW是现在  dispatch_walltime(const struct timespec *_Nullable when, int64_t delta),参数when可以为Null，默认为获取当前时间，参数delta为增量   注意时间要是 3 * NSEC_PER_SEC
+    dispatch_source_set_timer(_badgeTimer, dispatch_walltime(NULL,3.0 * NSEC_PER_SEC), 3 * NSEC_PER_SEC, 3 * NSEC_PER_SEC);
+    //设置定时器的动作
+    dispatch_source_set_event_handler(_badgeTimer, ^{
+        //[UIApplication sharedApplication].applicationIconBadgeNumber ++;
+        [self getTrade];
+        //有新订单
+        if(num > num0 && num!=num1) {
+            num1 = num;
+            [self addlocalNotificationForNewVersion];
+        }
+        //NSLog(@"%lu",(unsigned long)num0);
+        //但是没有显示
+    });
+    dispatch_resume(_badgeTimer);
+}
+
+- (void)startBgTask{
+    UIApplication *application = [UIApplication sharedApplication];
+    __block    UIBackgroundTaskIdentifier bgTask;
+    bgTask = [application beginBackgroundTaskWithExpirationHandler:^{
+        //这里延迟的系统时间结束
+        NSLog(@"%f",application.backgroundTimeRemaining);
+    }];
 }
 
 
@@ -28,8 +90,23 @@
 
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    //startBgTask用于延迟挂起
+    
+    
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init]; // 创建3个操作
+    NSOperation *a = [NSBlockOperation blockOperationWithBlock:^{ [self getTrade]; NSLog(@"operationA---");}];
+    NSOperation *b = [NSBlockOperation blockOperationWithBlock:^{ num0 = num ; NSLog(@"operationB---");}];
+    // 添加依赖
+    [b addDependency:a];
+    // 执行操作
+    [queue addOperation:a];
+    [queue addOperation:b];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        num0 = num;
+    });
+    [self stratBadgeNumberCount];
+    [self startBgTask];
 }
 
 
@@ -46,6 +123,47 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+//获取当前订单数目
+- (void)getTrade {
+    NSURL *url = [NSURL URLWithString:@"http://127.0.0.1/IOS.php"];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    request.HTTPMethod = @"POST";
+    request.timeoutInterval = 60;
+    NSString *user = @"ZJU";
+    request.HTTPBody = [[NSString stringWithFormat:@"User=%@",user] dataUsingEncoding:NSUTF8StringEncoding];
+    NSURLSession *session = [NSURLSession sharedSession];
+    __block NSString *result;
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSArray *array = [result componentsSeparatedByString:@"\n"];
+        num = array.count;
+    }];
+    [dataTask resume];
+}
+
+//通知中心
+//- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
+//
+//    NSDictionary * userInfo = notification.request.content.userInfo;
+//    UNNotificationRequest *request = notification.request; // 收到推送的请求
+//    UNNotificationContent *content = request.content; // 收到推送的消息内容
+//    NSNumber *badge = content.badge;  // 推送消息的角标
+//    NSString *body = content.body;    // 推送消息体
+//    UNNotificationSound *sound = content.sound;  // 推送消息的声音
+//    NSString *subtitle = content.subtitle;  // 推送消息的副标题
+//    NSString *title = content.title;  // 推送消息的标题
+//
+//    if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+//        NSLog(@"iOS10 前台收到远程通知:%@", body);
+//
+//    } else {
+//        // 判断为本地通知
+//        NSLog(@"iOS10 前台收到本地通知:{\\\\nbody:%@，\\\\ntitle:%@,\\\\nsubtitle:%@,\\\\nbadge：%@，\\\\nsound：%@，\\\\nuserInfo：%@\\\\n}",body,title,subtitle,badge,sound,userInfo);
+//    }
+//    completionHandler(UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionSound|UNNotificationPresentationOptionAlert); // 需要执行这个方法，选择是否提醒用户，有Badge、Sound、Alert三种类型可以设置
+//
+//}
 
 
 @end

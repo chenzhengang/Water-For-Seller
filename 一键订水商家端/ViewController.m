@@ -69,7 +69,11 @@ NSMutableArray *mArray1;
 }
 
 - (void)getTrade {
+    //模拟器调试
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 1;
     NSURL *url = [NSURL URLWithString:@"http://127.0.0.1/IOS.php"];
+    //mac 地址10.180.24.0
+    //NSURL *url = [NSURL URLWithString:@"http://10.180.24.0/IOS.php"];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     
