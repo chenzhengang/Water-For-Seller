@@ -10,6 +10,7 @@
 #import <UserNotifications/UserNotifications.h>
 #import "ViewController.h"
 #import "TradeViewController.h"
+#import "MCLaunchAdView.h"
 
 @interface AppDelegate ()
 @property (nonatomic) dispatch_source_t badgeTimer;
@@ -22,18 +23,64 @@ NSUInteger num0=0;//关闭之前的订单数目
 NSUInteger num1=0;//发出通知时的订单数目
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    /*添加广告
+     1.初始化，选择屏占比
+     2.设置广告总时长，可跳过，默认是6秒
+     3.启动计时器
+     */
+    MCLaunchAdView* view = [[MCLaunchAdView alloc] initWithWindow:self.window with:MCAdViewTypeFiveSixths];
+    //显示本地图片
+    //    view.localImageName = @"adImage_lion.png";
+    //显示网络图片
+    view.imageURL = @"http://imgsrc.baidu.com/forum/pic/item/65c1a9cc7b899e51371108904aa7d933c9950d56.jpg";
+    
+    [view setTimer:6];
+    [view startTimer];
+    view.clickBlock = ^(MCQuitLaunchAdStyle tag){
+        MCQuitLaunchAdStyle style = MCQuitLaunchAdStyleDefault;
+        switch (tag) {
+            case MCQuitLaunchAdStyleTimeOut:{
+                NSLog(@"%@",NSLocalizedString(@"时间耗尽", nil));
+                style = MCQuitLaunchAdStyleTimeOut;
+            }
+                break;
+            case MCQuitLaunchAdStyleSkip:{
+                NSLog(@"%@",NSLocalizedString(@"跳过广告", nil));
+                style = MCQuitLaunchAdStyleSkip;
+            }
+                break;
+            case MCQuitLaunchAdStyleJumpToURL:{
+                NSLog(@"%@",NSLocalizedString(@"进入广告", nil));
+                style = MCQuitLaunchAdStyleJumpToURL;
+            }
+                break;
+            default:{
+                NSLog(@"%@",NSLocalizedString(@"未知原因", nil));
+                style = MCQuitLaunchAdStyleDefault;
+            }
+                break;
+        }
+        //结束后再进入
+        TradeViewController* vc = [[TradeViewController alloc] init];
+        vc.view.backgroundColor = [UIColor whiteColor];
+        self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:vc];
+    };
+    //打印mainbundle
+    NSDictionary* dict = [[NSBundle mainBundle] infoDictionary];
+    NSLog(@"%@",dict);
+
+    
     // 注册通知
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionSound) completionHandler:^(BOOL granted, NSError * _Nullable error) {
     }];
     
+    /*
     //1、创建窗口
     
     self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
     
     self.window.backgroundColor = [UIColor whiteColor];
-    
-    
     
     //2.创建一个导航控制器并添加子视图
     
@@ -53,6 +100,7 @@ NSUInteger num1=0;//发出通知时的订单数目
     
     TradeViewController *vc = [[TradeViewController alloc] init];
     [nav pushViewController:vc animated:YES];
+     */
     return YES;
 }
 

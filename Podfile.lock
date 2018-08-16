@@ -1,20 +1,26 @@
 PODS:
   - lottie-ios (2.5.0)
   - Masonry (1.1.0)
+  - SDWebImage (4.4.1):
+    - SDWebImage/Core (= 4.4.1)
+  - SDWebImage/Core (4.4.1)
 
 DEPENDENCIES:
   - lottie-ios
   - Masonry
+  - SDWebImage
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - lottie-ios
     - Masonry
+    - SDWebImage
 
 SPEC CHECKSUMS:
   lottie-ios: d699fdee68d7b63e721d949388b015fef1aaa4ac
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  SDWebImage: 47e9b5b925cbce75946c23f0c42dd19464189af4
 
-PODFILE CHECKSUM: e8d108ee876cbd1e397c4d52ab043e6611881c2d
+PODFILE CHECKSUM: 4470630744178c22498e7f84bf3003d7a2038a59
 
 COCOAPODS: 1.5.3

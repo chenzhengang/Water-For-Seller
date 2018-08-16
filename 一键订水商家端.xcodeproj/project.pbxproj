@@ -20,6 +20,9 @@
 		B35638C421061741004C8943 /* vcTransition2.json in Resources */ = {isa = PBXBuildFile; fileRef = B35638C221061740004C8943 /* vcTransition2.json */; };
 		B35638C721061D16004C8943 /* water-loading.json in Resources */ = {isa = PBXBuildFile; fileRef = B35638C621061D16004C8943 /* water-loading.json */; };
 		B3563968212550EA004C8943 /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3563967212550EA004C8943 /* OrderViewController.m */; };
+		B356396B2125CC62004C8943 /* MCLaunchAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = B356396A2125CC62004C8943 /* MCLaunchAdView.m */; };
+		B356396E2125CCC5004C8943 /* MCCountingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B356396D2125CCC5004C8943 /* MCCountingButton.m */; };
+		B35639702125D565004C8943 /* 头像.JPG in Resources */ = {isa = PBXBuildFile; fileRef = B356396F2125D565004C8943 /* 头像.JPG */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +47,11 @@
 		B35638C621061D16004C8943 /* water-loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "water-loading.json"; sourceTree = "<group>"; };
 		B3563966212550EA004C8943 /* OrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderViewController.h; sourceTree = "<group>"; };
 		B3563967212550EA004C8943 /* OrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderViewController.m; sourceTree = "<group>"; };
+		B35639692125CC62004C8943 /* MCLaunchAdView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCLaunchAdView.h; sourceTree = "<group>"; };
+		B356396A2125CC62004C8943 /* MCLaunchAdView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MCLaunchAdView.m; sourceTree = "<group>"; };
+		B356396C2125CCC5004C8943 /* MCCountingButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCCountingButton.h; sourceTree = "<group>"; };
+		B356396D2125CCC5004C8943 /* MCCountingButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MCCountingButton.m; sourceTree = "<group>"; };
+		B356396F2125D565004C8943 /* 头像.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "头像.JPG"; sourceTree = "<group>"; };
 		EAF19A416005C698B3BB480A /* Pods-一键订水商家端.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-一键订水商家端.debug.xcconfig"; path = "Pods/Target Support Files/Pods-一键订水商家端/Pods-一键订水商家端.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -91,6 +99,10 @@
 			children = (
 				B35638952104955E004C8943 /* AppDelegate.h */,
 				B35638962104955E004C8943 /* AppDelegate.m */,
+				B35639692125CC62004C8943 /* MCLaunchAdView.h */,
+				B356396A2125CC62004C8943 /* MCLaunchAdView.m */,
+				B356396C2125CCC5004C8943 /* MCCountingButton.h */,
+				B356396D2125CCC5004C8943 /* MCCountingButton.m */,
 				B35638982104955E004C8943 /* ViewController.h */,
 				B35638992104955E004C8943 /* ViewController.m */,
 				B35638AD2104A8E9004C8943 /* TradeViewController.h */,
@@ -99,6 +111,7 @@
 				B35638AE2104A8E9004C8943 /* TradeViewController.m */,
 				B3563966212550EA004C8943 /* OrderViewController.h */,
 				B3563967212550EA004C8943 /* OrderViewController.m */,
+				B356396F2125D565004C8943 /* 头像.JPG */,
 				B356389B2104955E004C8943 /* Main.storyboard */,
 				B35638C621061D16004C8943 /* water-loading.json */,
 				B35638C221061740004C8943 /* vcTransition2.json */,
@@ -187,6 +200,7 @@
 				B35638C421061741004C8943 /* vcTransition2.json in Resources */,
 				B35638A22104955F004C8943 /* LaunchScreen.storyboard in Resources */,
 				B356389F2104955F004C8943 /* Assets.xcassets in Resources */,
+				B35639702125D565004C8943 /* 头像.JPG in Resources */,
 				B356389D2104955E004C8943 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -219,12 +233,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B356396E2125CCC5004C8943 /* MCCountingButton.m in Sources */,
 				B35638C12104F211004C8943 /* Order.m in Sources */,
 				B3563968212550EA004C8943 /* OrderViewController.m in Sources */,
 				B356389A2104955E004C8943 /* ViewController.m in Sources */,
 				B35638A52104955F004C8943 /* main.m in Sources */,
 				B35638972104955E004C8943 /* AppDelegate.m in Sources */,
 				B35638AF2104A8E9004C8943 /* TradeViewController.m in Sources */,
+				B356396B2125CC62004C8943 /* MCLaunchAdView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
