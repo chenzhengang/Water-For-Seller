@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import <UserNotifications/UserNotifications.h>
+#import "ViewController.h"
+#import "TradeViewController.h"
 
 @interface AppDelegate ()
 @property (nonatomic) dispatch_source_t badgeTimer;
@@ -24,6 +26,33 @@ NSUInteger num1=0;//发出通知时的订单数目
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionSound) completionHandler:^(BOOL granted, NSError * _Nullable error) {
     }];
+    
+    //1、创建窗口
+    
+    self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
+    
+    self.window.backgroundColor = [UIColor whiteColor];
+    
+    
+    
+    //2.创建一个导航控制器并添加子视图
+    
+    //UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:[TradeViewController new]];
+    UINavigationController *nav=[[UINavigationController alloc]init];
+    nav.navigationBar.barTintColor = [UIColor blueColor];
+    
+    //[nav.navigationBarsetBackgroundImage:[UIImage imageNamed:@"00"]forBarMetrics:UIBarMetricsDefault];
+    
+    //3.设置根视图
+    
+    self.window.rootViewController = nav;
+    
+    //4、显示窗口
+    
+    [self.window makeKeyAndVisible];
+    
+    TradeViewController *vc = [[TradeViewController alloc] init];
+    [nav pushViewController:vc animated:YES];
     return YES;
 }
 

@@ -10,8 +10,9 @@
 #import "TradeViewController.h"
 #import <Lottie/Lottie.h>
 #import "Order.h"
+#import "OrderViewController.h"
 
-@interface ViewController ()
+@interface ViewController ()<UIViewControllerTransitioningDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
@@ -22,7 +23,7 @@
 @implementation ViewController
 
 NSString *result;
-NSMutableArray *mArray1;
+NSMutableArray *mArray2;
 - (void)viewDidLoad {
     [super viewDidLoad];
     //设置一些参数
@@ -32,7 +33,7 @@ NSMutableArray *mArray1;
     _passwordTextField.layer.masksToBounds = true;
     _submitButton.layer.cornerRadius = 8;
     _submitButton.layer.masksToBounds = true;
-    mArray1 =[[NSMutableArray alloc] initWithCapacity:30];
+    mArray2 =[[NSMutableArray alloc] initWithCapacity:100];
      [self getTrade];
     // Do any additional setup after loading the view, typically from a nib.
 //    LOTAnimationView *animation = [LOTAnimationView animationNamed:@"Boat_Loader"];
@@ -54,9 +55,10 @@ NSMutableArray *mArray1;
     //[self getTrade];
     //return ;
     //UIStoryboard *board = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
-    
+//    OrderViewController *vc2=[[OrderViewController alloc] init];
+//    [self presentViewController:vc2 animated:YES completion:nil];
     //UIViewController *vc2 = [board instantiateViewControllerWithIdentifier: @"TradeViewController"];
-    if([_nameTextField.text  isEqual: @"zju"] && [_passwordTextField.text isEqual: @"123"]){
+    //if([_nameTextField.text  isEqual: @"zju"] && [_passwordTextField.text isEqual: @"123"]){
     
     
     UIViewController *vc2=[[TradeViewController alloc] init];
@@ -64,8 +66,9 @@ NSMutableArray *mArray1;
         _nameTextField.hidden = true;
         _passwordTextField.hidden = true;
         _submitButton.hidden = true;
-        vc2.transitioningDelegate = self;
-        [self presentViewController:vc2 animated:YES completion:nil];}
+        //vc2.transitioningDelegate = self;
+        [self presentViewController:vc2 animated:YES completion:nil];
+//}
 }
 
 - (void)getTrade {
@@ -100,7 +103,7 @@ NSMutableArray *mArray1;
             //NSString *x = array[1];
             //Order *order = [[Order alloc]initWithAll:array[i]];
             Order *order = [[Order alloc]initWithAll:array[i]];
-            [mArray1 addObject:order];
+            [mArray2 addObject:order];
             //一开始因为对all赋值所以输出了四个null！ 直接读all是可以的。
             //Order *order2 = mArray1[i];
             //NSLog(@"%@ %@",order.all,order2.all);
@@ -127,12 +130,12 @@ NSMutableArray *mArray1;
     return animationController;
 }
 
-- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
-    LOTAnimationTransitionController *animationController = [[LOTAnimationTransitionController alloc] initWithAnimationNamed:@"vcTransition2"
-                                                                                                              fromLayerNamed:@"outLayer"
-                                                                                                                toLayerNamed:@"inLayer"
-                                                                                                     applyAnimationTransform:NO];
-    return animationController;
-}
+//- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+//    LOTAnimationTransitionController *animationController = [[LOTAnimationTransitionController alloc] initWithAnimationNamed:@"vcTransition2"
+//                                                                                                              fromLayerNamed:@"outLayer"
+//                                                                                                                toLayerNamed:@"inLayer"
+//                                                                                                     applyAnimationTransform:NO];
+//    return animationController;
+//}
 
 @end

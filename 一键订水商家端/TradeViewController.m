@@ -8,29 +8,36 @@
 
 #import "TradeViewController.h"
 #import "ViewController.h"
+#import "OrderViewController.h"
 #import "Order.h"
 
-@interface TradeViewController ()
+@interface TradeViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @end
 
 @implementation TradeViewController
-extern NSMutableArray *mArray1;
+extern NSMutableArray *mArray2;
+NSMutableArray *mArray1;
 - (void)viewDidLoad {
     //mArray1 =[[NSMutableArray alloc] initWithCapacity:30];  这样会清空的！
     //[self loadOrder];
     [super viewDidLoad];
-    [self setupRefresh];
     self.view.backgroundColor = UIColor.whiteColor;
-    UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, aiScreenWidth, 60)];
-    UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:nil];
-    [navigationItem setTitle:@"订单"];
-    [navigationBar pushNavigationItem:navigationItem animated:NO];     
-    [self.view addSubview:navigationBar];
-    [self.tableView registerClass:[UITableViewCell class]
-           forCellReuseIdentifier:@"UITableViewCell"];
-    //NSString *result0= [self getTrade];
-    //self.tableView.dataSource = self ;
+//    UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, aiScreenWidth, 60)];
+//    UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:@"订单"];
+//    [navigationBar pushNavigationItem:navigationItem animated:NO];
+//    [self.view addSubview:navigationBar];
+    self.navigationItem.title=@"订单";
+    self.navigationItem.backBarButtonItem=[[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
+    self.tableView.dataSource = self;
+    self.tableView.delegate =self;
+    mArray1 =[[NSMutableArray alloc] initWithCapacity:50];
+    [self getTrade];
+    [self setupRefresh];
+    [self.tableView reloadData];// 刷新tableView即可
+    //去除tableview预留的空白
+    //self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
 
 - (void)didReceiveMemoryWarning {
@@ -39,21 +46,25 @@ extern NSMutableArray *mArray1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    TradeTableViewCell *cell;
-//    cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-//    if (!cell) {
-//        cell = [[TradeTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-//    }
-    // Get a new or recycled cell
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell" forIndexPath:indexPath];
+    UITableViewCell *cell;
+    cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell" forIndexPath:indexPath];
+    if (!cell) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+    }
+    //et a new or recycled cell
+    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell" forIndexPath:indexPath];
     // Configure the cell...
     //NSLog(@"%@",mArray1[0]);
     cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
     
     cell.textLabel.numberOfLines = 0;
     Order *item = mArray1[indexPath.row];
+//    cell.textLabel.text = item.commodity;
+    //子标题
+//    cell.detailTextLabel.text = item.all;
+    
+    //cell.imageView = xxx
     cell.textLabel.text = item.all;
-    //cell.textLabel.text = [item description];
     //cell.textLabel.text = @"XXXXXXX";
     //Order *item = mArray1[indexPath.row];
     //cell.user.text = @"xiaoming";
@@ -62,6 +73,15 @@ extern NSMutableArray *mArray1;
     //cell.phone.text = @"18867111100";
     //cell.textLabel.text = @"101";
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    //UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:self];
+    
+    OrderViewController *vc2=[[OrderViewController alloc] init];
+    //[navi pushViewController:vc2 animated:nil];
+    vc2.order = mArray1[indexPath.row];
+    [self.navigationController pushViewController:vc2 animated:YES];
 }
 
 - (void)setupRefresh {
@@ -73,11 +93,12 @@ extern NSMutableArray *mArray1;
 }
 // 下拉刷新触发，在此获取数据
 - (void)refreshClick:(UIRefreshControl *)refreshControl {
-    NSLog(@"refreshClick: -- 刷新触发");
+    //NSLog(@"refreshClick: -- 刷新触发");r
     // 此处添加刷新tableView数据的代码
     [self getTrade];
     [refreshControl endRefreshing];
     [self.tableView reloadData];// 刷新tableView即可
+    //NSLog(@" %@",[mArray1 objectAtIndex:0]);
     [self addToastWithString:@"刷新成功~" inView:self.view];
 }
 
@@ -102,7 +123,7 @@ extern NSMutableArray *mArray1;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 // Incomplete implementation, return the number of rows
-    //NSLog(@"计算行数2");
+    //NSLog(@"%lu", (unsigned long)[mArray1 count]);
     return [mArray1 count];
 }
 
@@ -148,8 +169,8 @@ extern NSMutableArray *mArray1;
 
 - (void) addToastWithString:(NSString *)string inView:(UIView *)view {
     
-    CGRect initRect = CGRectMake(0, NAVIGATION_BAR_HEIGHT+40, aiScreenWidth, 0);
-    CGRect rect = CGRectMake(0, NAVIGATION_BAR_HEIGHT+40, aiScreenWidth, 22);
+    CGRect initRect = CGRectMake(0, STATUS_BAR_HEIGHT - 20, aiScreenWidth, 0);
+    CGRect rect = CGRectMake(0, STATUS_BAR_HEIGHT - 20, aiScreenWidth, 22);
     UILabel* label = [[UILabel alloc] initWithFrame:initRect];
     label.text = string;
     label.textAlignment = NSTextAlignmentCenter;
@@ -174,7 +195,7 @@ extern NSMutableArray *mArray1;
     
     UILabel* label = [timer userInfo];
     
-    CGRect initRect = CGRectMake(0, STATUS_BAR_HEIGHT + 44, aiScreenWidth, 0);
+    CGRect initRect = CGRectMake(0, STATUS_BAR_HEIGHT - 20, aiScreenWidth, 0);
     //    label消失
     [UIView animateWithDuration:0.5 animations:^{
         
