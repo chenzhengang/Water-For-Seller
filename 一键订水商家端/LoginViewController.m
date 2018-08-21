@@ -6,13 +6,16 @@
 //  Copyright © 2018年 chenzhengang. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "LoginViewController.h"
 #import "TradeViewController.h"
 #import <Lottie/Lottie.h>
 #import "Order.h"
 #import "OrderViewController.h"
+//用来获取登录状态
+#import "AppDelegate.h"
+#define APPLICATION ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 
-@interface ViewController ()<UIViewControllerTransitioningDelegate>
+@interface LoginViewController ()<UIViewControllerTransitioningDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
@@ -20,7 +23,7 @@
 
 @end
 
-@implementation ViewController
+@implementation LoginViewController
 
 NSString *result;
 NSMutableArray *mArray2;
@@ -52,23 +55,29 @@ NSMutableArray *mArray2;
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)Submit:(UIButton *)sender {
-    //[self getTrade];
-    //return ;
-    //UIStoryboard *board = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
-//    OrderViewController *vc2=[[OrderViewController alloc] init];
-//    [self presentViewController:vc2 animated:YES completion:nil];
-    //UIViewController *vc2 = [board instantiateViewControllerWithIdentifier: @"TradeViewController"];
-    //if([_nameTextField.text  isEqual: @"zju"] && [_passwordTextField.text isEqual: @"123"]){
-    
-    
-    UIViewController *vc2=[[TradeViewController alloc] init];
-        //要在之后TradeViewController中加入代理
+    if([_nameTextField.text  isEqual: @"zju"] && [_passwordTextField.text isEqual: @"123"]){
+        //登录成功
+        APPLICATION.isLogin = YES;
         _nameTextField.hidden = true;
         _passwordTextField.hidden = true;
         _submitButton.hidden = true;
-        //vc2.transitioningDelegate = self;
-        [self presentViewController:vc2 animated:YES completion:nil];
-//}
+        if(APPLICATION.jumpType == Order_HOME_LOGIN){
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"LOGIN_ZZ" object:nil ];
+        }else if (APPLICATION.jumpType == Add_HOME_LOGIN){
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"LOGIN_HK" object:nil ];
+        }
+//        UIViewController *vc2=[[TradeViewController alloc] init];
+//        //要在之后TradeViewController中加入代理
+//        _nameTextField.hidden = true;
+//        _passwordTextField.hidden = true;
+//        _submitButton.hidden = true;
+//        vc2.transitioningDelegate = self;
+//        [self presentViewController:vc2 animated:YES completion:nil];
+    }else{
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"账号密码错误" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alertView show];
+    }
+    
 }
 
 - (void)getTrade {

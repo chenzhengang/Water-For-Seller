@@ -9,10 +9,14 @@
 #import "MainViewController.h"
 #import "Masonry/Masonry.h"
 #import "TradeViewController.h"
+#import <Lottie/Lottie.h>
 #import "UIViewController+Cloudox.h"
+#import "LoginViewController.h"
 #define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
 #define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
-
+//用来获取登录状态
+#import "AppDelegate.h"
+#define APPLICATION ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 //主菜单
 @interface MainViewController ()
 
@@ -90,19 +94,43 @@
 }
 
 - (void)orderButtonClick:(UIButton *)btn{
-    TradeViewController* vc = [[TradeViewController alloc] init];
-    //要通过导航进行push 而不能用present  否则无导航栏
-    [self.navigationController pushViewController:vc animated:YES];
-    //[self presentViewController:vc animated:YES completion:nil];
+    if (APPLICATION.isLogin == YES) {
+        [self jumpToOrder];
+    }else{
+        //
+        //先移除本通知，原因是：点击一个功能跳到登录界面，但是在登录界面点的取消，反复操作，再点这个功能，
+        //相同的通知会增加多次，登陆成功后会多次进入相应的功能
+        //
+        APPLICATION.jumpType = Order_HOME_LOGIN;
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"LOGIN_ZZ" object:nil] ;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToOrder0) name:@"LOGIN_ZZ" object:nil];
+        //获取Main.storyboard
+        UIStoryboard *mainStory = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        //获取Main.storyboard中的登录页面
+        LoginViewController *loginViewController = [mainStory instantiateViewControllerWithIdentifier:@"loginViewController"];
+        [self presentViewController:loginViewController  animated:YES completion:nil];
+    }
+    
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)jumpToOrder{
+    TradeViewController* vc = [[TradeViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
-*/
+
+-(void)jumpToOrder0{
+    //要在之后TradeViewController中加入代理
+    MainViewController* vc0 = [[MainViewController alloc] init];
+    //由于刚从登录界面回来  所以需要重新设置导航栏
+    APPLICATION.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:vc0];
+    //设置0.5秒自动跳转
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)),dispatch_get_main_queue(),^{
+        TradeViewController* vc = [[TradeViewController alloc] init];
+        //用self跳转不了!!!因为新建了一个MainViewController  而不是回到了之前的  所以要在新建的上面进行跳转！
+        //[self.navigationController pushViewController:vc animated:YES]
+        //NSLog(@"%@", [self class]);
+        [vc0.navigationController pushViewController:vc animated:YES];
+    });
+}
 
 @end

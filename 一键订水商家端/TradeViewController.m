@@ -7,10 +7,10 @@
 //
 
 #import "TradeViewController.h"
-#import "ViewController.h"
+#import "LoginViewController.h"
 #import "OrderViewController.h"
 #import "Order.h"
-
+#import <Lottie/Lottie.h>
 @interface TradeViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @end

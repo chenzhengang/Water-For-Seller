@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import <UserNotifications/UserNotifications.h>
-#import "ViewController.h"
+#import "LoginViewController.h"
 #import "TradeViewController.h"
 #import "MCLaunchAdView.h"
 #import "MainViewController.h"

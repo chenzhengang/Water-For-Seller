@@ -6,10 +6,10 @@
 //  Copyright © 2018年 chenzhengang. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "LoginViewController.h"
 #import "Order.h"
 
-@interface OrderViewController : ViewController
+@interface OrderViewController : LoginViewController
 
 @property(nonatomic,strong) Order *order;
 

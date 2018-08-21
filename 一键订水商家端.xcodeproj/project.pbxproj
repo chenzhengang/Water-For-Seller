@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		B1BCF82633E484986BB1BBD0 /* libPods-一键订水商家端.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C87B1F33B8629DBFECEDBA /* libPods-一键订水商家端.a */; };
 		B35638972104955E004C8943 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B35638962104955E004C8943 /* AppDelegate.m */; };
-		B356389A2104955E004C8943 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B35638992104955E004C8943 /* ViewController.m */; };
+		B356389A2104955E004C8943 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B35638992104955E004C8943 /* LoginViewController.m */; };
 		B356389D2104955E004C8943 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B356389B2104955E004C8943 /* Main.storyboard */; };
 		B356389F2104955F004C8943 /*  .xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B356389E2104955F004C8943 /*  .xcassets */; };
 		B35638A22104955F004C8943 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B35638A02104955F004C8943 /* LaunchScreen.storyboard */; };
@@ -33,8 +33,8 @@
 		B35638922104955E004C8943 /* 一键订水商家端.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "一键订水商家端.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B35638952104955E004C8943 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B35638962104955E004C8943 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		B35638982104955E004C8943 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		B35638992104955E004C8943 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		B35638982104955E004C8943 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		B35638992104955E004C8943 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		B356389C2104955E004C8943 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B356389E2104955F004C8943 /*  .xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = " .xcassets"; sourceTree = "<group>"; };
 		B35638A12104955F004C8943 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -104,25 +104,23 @@
 		B35638942104955E004C8943 /* 一键订水商家端 */ = {
 			isa = PBXGroup;
 			children = (
+				B35639BA212C6EFE004C8943 /* json */,
 				B35639B7212C5BED004C8943 /* ADV */,
 				B35639B6212C5934004C8943 /* Category */,
 				B35638952104955E004C8943 /* AppDelegate.h */,
 				B35638962104955E004C8943 /* AppDelegate.m */,
 				B35639AA212C278C004C8943 /* MainViewController.h */,
 				B35639AB212C278C004C8943 /* MainViewController.m */,
-				B35638982104955E004C8943 /* ViewController.h */,
-				B35638992104955E004C8943 /* ViewController.m */,
+				B35638982104955E004C8943 /* LoginViewController.h */,
+				B35638992104955E004C8943 /* LoginViewController.m */,
 				B35638AD2104A8E9004C8943 /* TradeViewController.h */,
+				B35638AE2104A8E9004C8943 /* TradeViewController.m */,
 				B35638BF2104F211004C8943 /* Order.h */,
 				B35638C02104F211004C8943 /* Order.m */,
-				B35638AE2104A8E9004C8943 /* TradeViewController.m */,
 				B3563966212550EA004C8943 /* OrderViewController.h */,
 				B3563967212550EA004C8943 /* OrderViewController.m */,
 				B356389B2104955E004C8943 /* Main.storyboard */,
-				B35638C621061D16004C8943 /* water-loading.json */,
-				B35638C221061740004C8943 /* vcTransition2.json */,
 				B356389E2104955F004C8943 /*  .xcassets */,
-				B35638AB210495CA004C8943 /* Boat_Loader.json */,
 				B35638A02104955F004C8943 /* LaunchScreen.storyboard */,
 				B35638A32104955F004C8943 /* Info.plist */,
 				B35638A42104955F004C8943 /* main.m */,
@@ -150,6 +148,16 @@
 				B356396D2125CCC5004C8943 /* MCCountingButton.m */,
 			);
 			path = ADV;
+			sourceTree = "<group>";
+		};
+		B35639BA212C6EFE004C8943 /* json */ = {
+			isa = PBXGroup;
+			children = (
+				B35638C621061D16004C8943 /* water-loading.json */,
+				B35638C221061740004C8943 /* vcTransition2.json */,
+				B35638AB210495CA004C8943 /* Boat_Loader.json */,
+			);
+			path = json;
 			sourceTree = "<group>";
 		};
 		E91E40B53BB69E5638EA980F /* Frameworks */ = {
@@ -263,7 +271,7 @@
 				B356396E2125CCC5004C8943 /* MCCountingButton.m in Sources */,
 				B35638C12104F211004C8943 /* Order.m in Sources */,
 				B3563968212550EA004C8943 /* OrderViewController.m in Sources */,
-				B356389A2104955E004C8943 /* ViewController.m in Sources */,
+				B356389A2104955E004C8943 /* LoginViewController.m in Sources */,
 				B35639AC212C278C004C8943 /* MainViewController.m in Sources */,
 				B35639B5212C57DC004C8943 /* UINavigationController+Cloudox.m in Sources */,
 				B35638A52104955F004C8943 /* main.m in Sources */,
