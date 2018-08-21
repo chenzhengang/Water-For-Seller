@@ -24,9 +24,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSLog(@"OrderViewController viewDidLoad");
+    //NSLog(@"OrderViewController viewDidLoad");
     self.view.backgroundColor = UIColor.whiteColor;
-    //防止block中的循环引用
+    //防止block中的循环引用 是不需要  因为这是系统的block  所以不会导致引用循环
     __weak typeof(self) weakSelf = self;
     UILabel *nameLabel = [UILabel new];
     UILabel *commodityLabel = [UILabel new];

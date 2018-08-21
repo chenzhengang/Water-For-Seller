@@ -130,12 +130,12 @@ NSMutableArray *mArray2;
     return animationController;
 }
 
-//- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
-//    LOTAnimationTransitionController *animationController = [[LOTAnimationTransitionController alloc] initWithAnimationNamed:@"vcTransition2"
-//                                                                                                              fromLayerNamed:@"outLayer"
-//                                                                                                                toLayerNamed:@"inLayer"
-//                                                                                                     applyAnimationTransform:NO];
-//    return animationController;
-//}
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    LOTAnimationTransitionController *animationController = [[LOTAnimationTransitionController alloc] initWithAnimationNamed:@"vcTransition2"
+                                                                                                              fromLayerNamed:@"outLayer"
+                                                                                                                toLayerNamed:@"inLayer"
+                                                                                                     applyAnimationTransform:NO];
+    return animationController;
+}
 
 @end

@@ -16,6 +16,6 @@
 //设置后台任务
 @property (nonatomic, unsafe_unretained) UIBackgroundTaskIdentifier backgroundTaskIdentifier;
 @property (nonatomic, strong) NSTimer *myTimer;
-
+@property (assign, nonatomic) BOOL isLogin;
 @end
 

@@ -8,6 +8,7 @@
 
 #import "Order.h"
 
+//订单属性
 @implementation Order
 
 - (NSString *)description

@@ -15,6 +15,7 @@
 
 @end
 
+//订单显示界面
 @implementation TradeViewController
 extern NSMutableArray *mArray2;
 NSMutableArray *mArray1;

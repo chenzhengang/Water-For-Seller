@@ -11,6 +11,7 @@
 #import "ViewController.h"
 #import "TradeViewController.h"
 #import "MCLaunchAdView.h"
+#import "MainViewController.h"
 
 @interface AppDelegate ()
 @property (nonatomic) dispatch_source_t badgeTimer;
@@ -61,13 +62,13 @@ NSUInteger num1=0;//发出通知时的订单数目
                 break;
         }
         //结束后再进入
-        TradeViewController* vc = [[TradeViewController alloc] init];
+        MainViewController* vc = [[MainViewController alloc] init];
         vc.view.backgroundColor = [UIColor whiteColor];
         self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:vc];
     };
     //打印mainbundle
-    NSDictionary* dict = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"%@",dict);
+    //NSDictionary* dict = [[NSBundle mainBundle] infoDictionary];
+    //NSLog(@"%@",dict);
 
     
     // 注册通知
