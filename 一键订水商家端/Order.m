@@ -14,11 +14,12 @@
 - (NSString *)description
 {
     NSString *descriptionString =
-    [[NSString alloc] initWithFormat:@"%@ %@ %@ %@",
+    [[NSString alloc] initWithFormat:@"%@ %@ %@ %@ %@",
          self.user,
          self.commodity,
          self.address,
-         self.phone];
+         self.phone,
+         self.state];
     return descriptionString;
 }
 
@@ -44,13 +45,15 @@
 - (instancetype)initWithOrderName:(NSString *)user
                         commodity:(NSString *)commodity
                           address:(NSString *)address
-                            phone:(NSString *)phone{
+                            phone:(NSString *)phone
+                            state:(NSString *)state{
     self = [super init];
     if(self){
         self.user = user;
         self.commodity = commodity;
         self.address = address;
         self.phone = phone;
+        self.state = state;
     }
         return self;
 }

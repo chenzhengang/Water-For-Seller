@@ -10,16 +10,19 @@
 
 @interface Order : NSObject
 
+@property    NSString *order_id;
 @property    NSString *user;
 @property    NSString *commodity;
 @property    NSString *address;
 @property    NSString *phone;
+@property    NSString *state;
 @property    NSString *all;
 
 - (instancetype)initWithOrderName:(NSString *)user
                         commodity:(NSString *)commodity
                           address:(NSString *)address
-                            phone:(NSString *)phone;
+                            phone:(NSString *)phone
+                            state:(NSString *)state;
 
 - (instancetype)initWithAll:(NSString *)all;
 @end

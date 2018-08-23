@@ -94,7 +94,9 @@
 }
 
 - (void)orderButtonClick:(UIButton *)btn{
-    if (APPLICATION.isLogin == YES) {
+    //测试方便
+    //APPLICATION.isLogin == YES
+    if (1) {
         [self jumpToOrder];
     }else{
         //

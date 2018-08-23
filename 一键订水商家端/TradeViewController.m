@@ -11,6 +11,8 @@
 #import "OrderViewController.h"
 #import "Order.h"
 #import <Lottie/Lottie.h>
+#import <AFNetworking.h>
+#import <YYModel.h>
 @interface TradeViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @end
@@ -35,6 +37,8 @@ NSMutableArray *mArray1;
     self.tableView.delegate =self;
     mArray1 =[[NSMutableArray alloc] initWithCapacity:50];
     [self getTrade];
+    //[self AFNgetTrade];
+    //[self AFNgetTrade_JSON];
     [self setupRefresh];
     [self.tableView reloadData];// 刷新tableView即可
     //去除tableview预留的空白
@@ -52,27 +56,11 @@ NSMutableArray *mArray1;
     if (!cell) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
     }
-    //et a new or recycled cell
-    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell" forIndexPath:indexPath];
-    // Configure the cell...
-    //NSLog(@"%@",mArray1[0]);
     cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    
     cell.textLabel.numberOfLines = 0;
     Order *item = mArray1[indexPath.row];
-//    cell.textLabel.text = item.commodity;
-    //子标题
-//    cell.detailTextLabel.text = item.all;
-    
-    //cell.imageView = xxx
     cell.textLabel.text = item.all;
-    //cell.textLabel.text = @"XXXXXXX";
-    //Order *item = mArray1[indexPath.row];
-    //cell.user.text = @"xiaoming";
-    //cell.commodity.text = @"water";
-    //cell.address.text = @"ZJU";
-    //cell.phone.text = @"18867111100";
-    //cell.textLabel.text = @"101";
+
     return cell;
 }
 
@@ -97,6 +85,7 @@ NSMutableArray *mArray1;
     //NSLog(@"refreshClick: -- 刷新触发");r
     // 此处添加刷新tableView数据的代码
     [self getTrade];
+    //[self AFNgetTrade_JSON];
     [refreshControl endRefreshing];
     [self.tableView reloadData];// 刷新tableView即可
     //NSLog(@" %@",[mArray1 objectAtIndex:0]);
@@ -108,7 +97,8 @@ NSMutableArray *mArray1;
     Order *order = [[Order alloc]initWithOrderName:@"zhang"
                                   commodity:@"Water"
                                     address:@"32-101"
-                                      phone:@"18867110000"];
+                                      phone:@"18867110000"
+                                             state:@"未发货"];
 //    Order *order = [[Order alloc]initWithAll:@"zhang"];
     //[mArray1 insertObject:order atIndex:1];
     //mArray1[0]=order;
@@ -167,6 +157,64 @@ NSMutableArray *mArray1;
     }];
     [dataTask resume];
 }
+
+- (void) AFNgetTrade{
+    //NSURL *url = [NSURL URLWithString:@"http://127.0.0.1/IOS.php"];
+    //注意这个URL参数是NSString
+    NSString *URL= @"http://127.0.0.1/IOS.php";
+    //1.创建会话管理者
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFN不支持text/html
+    manager.responseSerializer = [AFJSONResponseSerializer new];
+    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html", nil];
+    //AFN它内部默认把服务器响应的数据当做json来进行解析，所以如果服务器返回给我的不是JSON数据那么请求报错，这个时候需要设置AFN对响应信息的解析方式。
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    //2.创建参数
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setObject:@"ZJU" forKey:@"User"];
+    //[dict setObject:@"123" forKey:@"passward"];
+    //3.发送POST请求
+    [manager POST:URL parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        //注意：responseObject:请求成功返回的响应结果（AFN内部已经把响应体转换为OC对象，通常是字典或数组）
+        //把二进制数据解码
+        NSString *result = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        NSLog(@"请求成功---%@\n",result);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"请求失败---%@",error);
+    }];
+}
+
+- (void) AFNgetTrade_JSON{
+    //NSURL *url = [NSURL URLWithString:@"http://127.0.0.1/IOS_JSON.php"];
+    //注意这个URL参数是NSString
+    NSString *URL= @"http://127.0.0.1/IOS_JSON.php";
+    //1.创建会话管理者
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFN不支持text/html
+    manager.responseSerializer = [AFJSONResponseSerializer new];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html", nil];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    //manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    //2.创建参数
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setObject:@"ZJU" forKey:@"User"];
+    //[dict setObject:@"123" forKey:@"passward"];
+    //3.发送POST请求
+    [manager POST:URL parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        //注意：responseObject:请求成功返回的响应结果（AFN内部已经把响应体转换为OC对象，通常是字典或数组）
+        //NSLog(@"请求成功---%@",responseObject);
+        NSString *result = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        //NSLog(@"请求成功---%@",result);
+        mArray1 = [NSArray yy_modelArrayWithClass:[Order class] json:result];
+        NSLog(@"%@",mArray1);
+        //Order *order = [Order yy_modelWithJSON:result];
+        //NSLog(@"%@",orders[1]);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"请求失败---%@",error);
+    }];
+}
+
 
 - (void) addToastWithString:(NSString *)string inView:(UIView *)view {
     
